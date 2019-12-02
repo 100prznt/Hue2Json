@@ -18,9 +18,15 @@ namespace Rca.Hue2Json
         public Capability Lights { get; set; }
 
         /// <summary>
-        /// Nur HW-Sensoren
+        /// Sensoren
         /// </summary>
+        [Obsolete("Abgelöst durch SensorResources")]
         public Capability Sensors { get; set; }
+
+        /// <summary>
+        /// Sensor Subresources
+        /// </summary>
+        public SensorCapability SensorResources { get; set; }
 
         public Capability Groups { get; set; }
 
@@ -71,6 +77,7 @@ namespace Rca.Hue2Json
         {
             Lights = new Capability();
             Sensors = new Capability();
+            SensorResources = new SensorCapability();
             Groups = new Capability();
             Schedules = new Capability();
             Resourcelinks = new Capability();
@@ -140,6 +147,37 @@ namespace Rca.Hue2Json
         public override string ToString()
         {
             return InUse + "/" + Available + " (" + InUsePercent.ToString("F1") + " %)";
+        }
+    }
+
+    /// <summary>
+    /// Capability Objekt für Sensoren
+    /// </summary>
+    public class SensorCapability
+    {
+        /// <summary>
+        /// Summe aller Sensoren
+        /// </summary>
+        public Capability Total { get; set; }
+        public Capability Clip { get; set; }
+
+        /// <summary>
+        /// ZigBee Light Link
+        /// </summary>
+        public Capability Zll { get; set; }
+
+        /// <summary>
+        /// ZigBee Green Power
+        /// Siehe: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Sensors
+        /// </summary>
+        public Capability Zgp { get; set; }
+
+        public SensorCapability()
+        {
+            Total = new Capability();
+            Clip = new Capability();
+            Zll = new Capability();
+            Zgp = new Capability();
         }
     }
 

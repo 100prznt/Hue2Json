@@ -388,10 +388,15 @@ namespace Rca.Hue2Json
                 var capabilities = await m_HueClient.GetCapabilitiesAsync();
                 var resourcelinks = await m_HueClient.GetResourceLinksAsync();
 
+
                 hueCapabilities.Lights.InUse = lights.Count();
                 hueCapabilities.Lights.Available = capabilities.Lights.Available + hueCapabilities.Lights.InUse;
-                hueCapabilities.Sensors.InUse = sensors.Count(); //TODO: Prüfen ob nur HW Sensoren erfasst werden!
+                hueCapabilities.Sensors.InUse = sensors.Count(); //TODO: Diskrepanz zw. HW- u. Soft-Sensoren
                 hueCapabilities.Sensors.Available = capabilities.Sensors.Available + hueCapabilities.Sensors.InUse;
+
+                //hueCapabilities.SensorResources.Total = 111;
+                //hueCapabilities.SensorResources.Clip.
+
                 hueCapabilities.Groups.InUse = groups.Count();
                 hueCapabilities.Groups.Available = capabilities.Groups.Available + hueCapabilities.Groups.InUse;
                 hueCapabilities.Schedules.InUse = schedules.Count();
@@ -505,11 +510,14 @@ namespace Rca.Hue2Json
             }
         }
 
-        public void SetStartUpMode(string lightid, StartupMode startup)
+        public async void SetStartUpMode(string lightid, StartupMode startup)
         {
-            var caller = new ApiCaller();
+            var light = await m_HueClient.GetLightAsync(lightid);
+            light.Config.Startup.Mode = startup; //TODO: ungetestet!
 
-            caller.HttpPut("lights/" + lightid, "{\"config\":{\"startup\":{\"mode\":\"" + startup.ToString().ToLower() + "\"}}}");
+
+            //var caller = new ApiCaller();
+            //caller.HttpPut("lights/" + lightid, "{\"config\":{\"startup\":{\"mode\":\"" + startup.ToString().ToLower() + "\"}}}");
         }
 
         /// <summary>

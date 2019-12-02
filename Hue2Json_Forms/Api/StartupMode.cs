@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace Rca.Hue2Json.Api
 {
-    public enum StartupMode
-    {
-        [StartupMode("Safety")]
-        Safety,
-        [StartupMode("Stromausfall")]
-        Powerfail,
-        [StartupMode("Letzter An-Zustand")]
-        LastOnState,
-        [StartupMode("Benutzerdefiniert")]
-        Custom,
-        [StartupMode("Nicht Unterstützt")]
-        NotSupported
-    }
+    //Funktionalität wird nun von Q42 API bereit gestellt
+
+    //public enum StartupMode
+    //{
+    //    [StartupMode("Safety")]
+    //    Safety,
+    //    [StartupMode("Stromausfall")]
+    //    Powerfail,
+    //    [StartupMode("Letzter An-Zustand")]
+    //    LastOnState,
+    //    [StartupMode("Benutzerdefiniert")]
+    //    Custom,
+    //    [StartupMode("Nicht Unterstützt")]
+    //    NotSupported
+    //}
 }
