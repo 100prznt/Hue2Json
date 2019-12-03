@@ -13,11 +13,11 @@ namespace Rca.Hue2Json.View
 {
     public partial class CapabilitySensorDetailsView : Form
     {
-        public HueCapabilities Capabilities { get; set; }
+        public SensorCapability SensorResources { get; set; }
 
-        public CapabilitySensorDetailsView(HueCapabilities capabilities)
+        public CapabilitySensorDetailsView(SensorCapability sensorCapabilities)
         {
-            Capabilities = capabilities;
+            SensorResources = sensorCapabilities;
 
             InitializeComponent();
 
@@ -37,7 +37,7 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.ChartAreas[0].AxisY.Title = "Belegung in %";
 
             cat_Capabilities.Series.Add("clip");
-            cat_Capabilities.Series["clip"].Points.AddY(Capabilities.RulesInUsePercent.Count);
+            cat_Capabilities.Series["clip"].Points.AddY(SensorResources.Clip.InUsePercent);
             cat_Capabilities.Series["clip"].IsVisibleInLegend = false;
             cat_Capabilities.Series["clip"].Label = "Clip";
             //cat_Capabilities.Series["clip"].CustomProperties = "MinPixelPointWidth=150";
@@ -45,14 +45,14 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.Series["clip"]["MinPixelPointWidth"] = "230";
 
             cat_Capabilities.Series.Add("zgp");
-            cat_Capabilities.Series["zgp"].Points.AddY(Capabilities.RulesInUsePercent.Actions);
+            cat_Capabilities.Series["zgp"].Points.AddY(SensorResources.Zgp.InUsePercent);
             cat_Capabilities.Series["zgp"].IsVisibleInLegend = false;
             cat_Capabilities.Series["zgp"].Label = "ZGP";
             //cat_Capabilities.Series["zgp"].SetCustomProperty("MinPixelPointWidth", "80");
             cat_Capabilities.Series["zgp"]["MinPixelPointWidth"] = "230";
 
             cat_Capabilities.Series.Add("zll");
-            cat_Capabilities.Series["zll"].Points.AddY(Capabilities.RulesInUsePercent.Conditions);
+            cat_Capabilities.Series["zll"].Points.AddY(SensorResources.Zll.InUsePercent);
             cat_Capabilities.Series["zll"].IsVisibleInLegend = false;
             cat_Capabilities.Series["zll"].Label = "ZLL";
             //cat_Capabilities.Series["zll"].SetCustomProperty("MinPixelPointWidth", "80");
@@ -61,25 +61,63 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.Update();
             cat_Capabilities.PerformLayout();
 
-            lbl_Rules.Text = Capabilities.RulesInUse.Count + "/" + Capabilities.RulesAvailable.Count + " (" + Capabilities.RulesInUsePercent.Count.ToString("F1") + " %)";
-            lbl_Conditions.Text = Capabilities.RulesInUse.Conditions + "/" + Capabilities.RulesAvailable.Conditions + " (" + Capabilities.RulesInUsePercent.Conditions.ToString("F1") + " %)";
-            lbl_Actions.Text = Capabilities.RulesInUse.Actions + "/" + Capabilities.RulesAvailable.Actions + " (" + Capabilities.RulesInUsePercent.Actions.ToString("F1") + " %)";
+            lbl_Clip.Text = SensorResources.Clip.InUse + "/" + SensorResources.Clip.Available + " (" + SensorResources.Clip.InUsePercent.ToString("F1") + " %)";
+            lbl_Zll.Text = SensorResources.Zll.InUse + "/" + SensorResources.Zll.Available + " (" + SensorResources.Zll.InUsePercent.ToString("F1") + " %)";
+            lbl_Zgp.Text = SensorResources.Zgp.InUse + "/" + SensorResources.Zgp.Available + " (" + SensorResources.Zgp.InUsePercent.ToString("F1") + " %)";
 
-            lbl_ActionsPerRule.Text = Capabilities.MeanActions.ToString("F2");
-            lbl_ConditionsPerRule.Text = Capabilities.MeanConditions.ToString("F2");
+            lbl_DimmerSwitch.Text = DeviceRessources.HueDimmerSwitch.GetMaxAmountString(SensorResources).ToString();
+            lbl_MotionSensor.Text = DeviceRessources.HueMotionSensor.GetMaxAmountString(SensorResources).ToString();
+            lbl_SmartButton.Text = DeviceRessources.HueSmartButton.GetMaxAmountString(SensorResources).ToString();
+        }
 
-            double maxValue = Capabilities.RulesInUsePercent.Count;
-            string freeSpaceText = (Capabilities.RulesAvailable.Count - Capabilities.RulesInUse.Count) + " Regeln (Regellimit)";
-            if (Capabilities.RulesInUsePercent.Conditions > maxValue)
+        private class DeviceRessources
+        {
+            public int ZllCount { get; }
+            public int ZgpCount { get; }
+            public int ClipCount { get; }
+
+            public DeviceRessources(int zll, int zgp, int clip)
             {
-                maxValue = Capabilities.RulesInUsePercent.Conditions;
-                freeSpaceText = (Capabilities.RulesAvailable.Conditions - Capabilities.RulesInUse.Conditions) + " Regeln (Bedingungslimit)";
+                ZllCount = zll;
+                ZgpCount = zgp;
+                ClipCount = clip;
             }
-            if (Capabilities.RulesInUsePercent.Actions > maxValue)
-                freeSpaceText = (Capabilities.RulesAvailable.Actions - Capabilities.RulesInUse.Actions) + " Regeln (Aktionslimit)";
-            
 
-            lbl_FreeSpace.Text = freeSpaceText;
+            public string GetMaxAmountString(SensorCapability capability)
+            {
+                var spaces = new List<int>
+                {
+                    (int)Math.Floor((double)capability.Zll.Available / ZllCount),
+                    (int)Math.Floor((double)capability.Zgp.Available / ZgpCount),
+                    (int)Math.Floor((double)capability.Clip.Available / ClipCount)
+                };
+
+                var i = spaces.IndexOf(spaces.Min());
+
+                var result = new StringBuilder(spaces[i].ToString());
+
+                //Schön ist anders...
+                switch (i)
+                {
+                    case 0:
+                        result.Append($" ({spaces[i] * ZllCount} ZLL)");
+                        break;
+                    case 1:
+                        result.Append($" ({spaces[i] * ZgpCount} ZGP)");
+                        break;
+                    case 2:
+                        result.Append($" ({spaces[i] * ClipCount} Clip)");
+                        break;
+                    default:
+                        break;
+                }
+
+                return result.ToString();
+            }
+
+            public static DeviceRessources HueMotionSensor => new DeviceRessources(1, 0, 0);
+            public static DeviceRessources HueDimmerSwitch => new DeviceRessources(1, 0, 0);
+            public static DeviceRessources HueSmartButton => new DeviceRessources(1, 0, 0);
         }
     }
 }

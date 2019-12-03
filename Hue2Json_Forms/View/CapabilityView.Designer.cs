@@ -31,7 +31,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cat_Capabilities = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lbl_Sensors = new System.Windows.Forms.Label();
             this.lbl_Groups = new System.Windows.Forms.Label();
             this.lbl_Lights = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -41,9 +40,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.llb_Rules = new System.Windows.Forms.LinkLabel();
             this.lbl_Resourcelinks = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.llb_Rules = new System.Windows.Forms.LinkLabel();
+            this.llb_Sensors = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.cat_Capabilities)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -61,15 +61,6 @@
             this.cat_Capabilities.Size = new System.Drawing.Size(572, 300);
             this.cat_Capabilities.TabIndex = 0;
             this.cat_Capabilities.Text = "chart1";
-            // 
-            // lbl_Sensors
-            // 
-            this.lbl_Sensors.AutoSize = true;
-            this.lbl_Sensors.Location = new System.Drawing.Point(146, 61);
-            this.lbl_Sensors.Name = "lbl_Sensors";
-            this.lbl_Sensors.Size = new System.Drawing.Size(61, 13);
-            this.lbl_Sensors.TabIndex = 5;
-            this.lbl_Sensors.Text = "lbl_Sensors";
             // 
             // lbl_Groups
             // 
@@ -145,6 +136,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.llb_Sensors);
             this.groupBox1.Controls.Add(this.llb_Rules);
             this.groupBox1.Controls.Add(this.lbl_Resourcelinks);
             this.groupBox1.Controls.Add(this.label2);
@@ -156,13 +148,23 @@
             this.groupBox1.Controls.Add(this.lbl_Lights);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.lbl_Groups);
-            this.groupBox1.Controls.Add(this.lbl_Sensors);
             this.groupBox1.Location = new System.Drawing.Point(12, 335);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(572, 120);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bridge-Belegung";
+            // 
+            // llb_Rules
+            // 
+            this.llb_Rules.AutoSize = true;
+            this.llb_Rules.Location = new System.Drawing.Point(403, 60);
+            this.llb_Rules.Name = "llb_Rules";
+            this.llb_Rules.Size = new System.Drawing.Size(50, 13);
+            this.llb_Rules.TabIndex = 14;
+            this.llb_Rules.TabStop = true;
+            this.llb_Rules.Text = "llb_Rules";
+            this.llb_Rules.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llb_Rules_LinkClicked);
             // 
             // lbl_Resourcelinks
             // 
@@ -182,16 +184,16 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "Links:";
             // 
-            // llb_Rules
+            // llb_Sensors
             // 
-            this.llb_Rules.AutoSize = true;
-            this.llb_Rules.Location = new System.Drawing.Point(403, 60);
-            this.llb_Rules.Name = "llb_Rules";
-            this.llb_Rules.Size = new System.Drawing.Size(50, 13);
-            this.llb_Rules.TabIndex = 14;
-            this.llb_Rules.TabStop = true;
-            this.llb_Rules.Text = "llb_Rules";
-            this.llb_Rules.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llb_Rules_LinkClicked);
+            this.llb_Sensors.AutoSize = true;
+            this.llb_Sensors.Location = new System.Drawing.Point(146, 61);
+            this.llb_Sensors.Name = "llb_Sensors";
+            this.llb_Sensors.Size = new System.Drawing.Size(61, 13);
+            this.llb_Sensors.TabIndex = 15;
+            this.llb_Sensors.TabStop = true;
+            this.llb_Sensors.Text = "llb_Sensors";
+            this.llb_Sensors.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llb_Sensors_LinkClicked);
             // 
             // CapabilityView
             // 
@@ -212,7 +214,6 @@
         #endregion
 
         private System.Windows.Forms.DataVisualization.Charting.Chart cat_Capabilities;
-        private System.Windows.Forms.Label lbl_Sensors;
         private System.Windows.Forms.Label lbl_Groups;
         private System.Windows.Forms.Label lbl_Lights;
         private System.Windows.Forms.Label label10;
@@ -225,5 +226,6 @@
         private System.Windows.Forms.Label lbl_Resourcelinks;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel llb_Rules;
+        private System.Windows.Forms.LinkLabel llb_Sensors;
     }
 }

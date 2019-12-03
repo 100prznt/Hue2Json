@@ -391,12 +391,20 @@ namespace Rca.Hue2Json
 
                 hueCapabilities.Lights.InUse = lights.Count();
                 hueCapabilities.Lights.Available = capabilities.Lights.Available + hueCapabilities.Lights.InUse;
-                hueCapabilities.Sensors.InUse = sensors.Count(); //TODO: Diskrepanz zw. HW- u. Soft-Sensoren
-                hueCapabilities.Sensors.Available = capabilities.Sensors.Available + hueCapabilities.Sensors.InUse;
 
-                //hueCapabilities.SensorResources.Total = 111;
-                //hueCapabilities.SensorResources.Clip.
+                //hueCapabilities.Sensors.InUse = sensors.Count(); //TODO: Diskrepanz zw. HW- u. Soft-Sensoren
+                //hueCapabilities.Sensors.Available = capabilities.Sensors.Available + hueCapabilities.Sensors.InUse;
 
+                hueCapabilities.SensorResources.Total.InUse = capabilities.Sensors.Total - capabilities.Sensors.Available;
+                hueCapabilities.SensorResources.Total.Available = capabilities.Sensors.Available;
+
+                hueCapabilities.SensorResources.Clip.InUse = capabilities.Sensors.Clip.Total - capabilities.Sensors.Clip.Available;
+                hueCapabilities.SensorResources.Clip.Available = capabilities.Sensors.Clip.Available;
+                hueCapabilities.SensorResources.Zll.InUse = capabilities.Sensors.Zll.Total - capabilities.Sensors.Zll.Available;
+                hueCapabilities.SensorResources.Zll.Available = capabilities.Sensors.Zll.Available;
+                hueCapabilities.SensorResources.Zgp.InUse = capabilities.Sensors.Zgp.Total - capabilities.Sensors.Zgp.Available;
+                hueCapabilities.SensorResources.Zgp.Available = capabilities.Sensors.Zgp.Available;
+                
                 hueCapabilities.Groups.InUse = groups.Count();
                 hueCapabilities.Groups.Available = capabilities.Groups.Available + hueCapabilities.Groups.InUse;
                 hueCapabilities.Schedules.InUse = schedules.Count();

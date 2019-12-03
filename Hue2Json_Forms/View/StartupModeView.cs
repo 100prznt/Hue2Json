@@ -1,4 +1,5 @@
-﻿using Rca.Hue2Json.Api;
+﻿using Q42.HueApi;
+using Rca.Hue2Json.Api;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -61,7 +61,11 @@ namespace Rca.Hue2Json.Settings
             try
             {
                 if (File.Exists(path))
-                    File.Move(path, path.Substring(0, path.Length - 6) + "bak");
+                {
+                    string destPath = path.Substring(0, path.Length - 6) + "bak";
+                    File.Delete(destPath);
+                    File.Move(path, destPath);
+                }
             }
             catch (Exception ex)
             {

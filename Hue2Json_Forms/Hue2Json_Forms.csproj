@@ -63,6 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutView.Designer.cs">
+      <DependentUpon>AboutView.cs</DependentUpon>
+    </Compile>
     <Compile Include="AnonymizeOptions.cs" />
     <Compile Include="Api\ApiCaller.cs" />
     <Compile Include="Api\LightExtended.cs" />
@@ -70,6 +76,7 @@
     <Compile Include="Api\StartupMode.cs" />
     <Compile Include="Api\StartupModeAttribute.cs" />
     <Compile Include="AppKeyManager.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BridgeInfo.cs" />
     <Compile Include="BridgeResult.cs" />
     <Compile Include="Controller.cs" />
@@ -124,6 +131,9 @@
     <Compile Include="View\StartupModeView.Designer.cs">
       <DependentUpon>StartupModeView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutView.resx">
+      <DependentUpon>AboutView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\BridgeButtonView.resx">
       <DependentUpon>BridgeButtonView.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo100prznt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,7 +53,7 @@ namespace Rca.Hue2Json
                 }
                 catch
                 {
-                    lightExtended.Startup = StartupMode.NotSupported;
+                    lightExtended.Startup = StartupMode.Unknown;
                 }
                 Lights.Add(lightExtended);
             }

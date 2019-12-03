@@ -229,13 +229,16 @@ namespace Rca.Hue2Json.View
             }
         }
 
-        private void überToolStripMenuItem1_Click(object sender, EventArgs e) => MessageBox.Show(
-                "Hue2Json" + Environment.NewLine + Environment.NewLine +
-                "Version: " + Application.ProductVersion + Environment.NewLine +
-                "Autor: Ruemmler, Elias",
-                "Hue2Json",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+        private void überToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var aboutView = new AboutView()
+            {
+                RepoUrl = "https://github.com/100prznt/Hue2Json",
+                AuthorEmail = "github@100prznt.de"
+            };
+
+            aboutView.ShowDialog();
+        }
 
         #endregion Benutzereingaben verarbeiten
 

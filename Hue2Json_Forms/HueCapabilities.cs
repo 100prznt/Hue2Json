@@ -20,8 +20,8 @@ namespace Rca.Hue2Json
         /// <summary>
         /// Sensoren
         /// </summary>
-        [Obsolete("Abgelöst durch SensorResources")]
-        public Capability Sensors { get; set; }
+        //[Obsolete("Abgelöst durch SensorResources")]
+        //public Capability Sensors { get; set; }
 
         /// <summary>
         /// Sensor Subresources
@@ -76,7 +76,7 @@ namespace Rca.Hue2Json
         public HueCapabilities()
         {
             Lights = new Capability();
-            Sensors = new Capability();
+            //Sensors = new Capability();
             SensorResources = new SensorCapability();
             Groups = new Capability();
             Schedules = new Capability();
@@ -159,6 +159,7 @@ namespace Rca.Hue2Json
         /// Summe aller Sensoren
         /// </summary>
         public Capability Total { get; set; }
+
         public Capability Clip { get; set; }
 
         /// <summary>

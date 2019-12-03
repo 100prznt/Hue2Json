@@ -44,7 +44,7 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.Series["lights"]["MinPixelPointWidth"] = "420";
 
             cat_Capabilities.Series.Add("sensors");
-            cat_Capabilities.Series["sensors"].Points.AddY(Capabilities.Sensors.InUsePercent);
+            cat_Capabilities.Series["sensors"].Points.AddY(Capabilities.SensorResources.Total.InUsePercent);
             cat_Capabilities.Series["sensors"].IsVisibleInLegend = false;
             cat_Capabilities.Series["sensors"].Label = "Sensoren";
             cat_Capabilities.Series["sensors"]["MinPixelPointWidth"] = "420";
@@ -72,7 +72,7 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.PerformLayout();
 
             lbl_Lights.Text = Capabilities.Lights.ToString();
-            lbl_Sensors.Text = Capabilities.Sensors.ToString();
+            llb_Sensors.Text = Capabilities.SensorResources.Total.ToString();
             lbl_Groups.Text = Capabilities.Groups.ToString();
             lbl_Schedules.Text = Capabilities.Schedules.ToString();
             llb_Rules.Text = Capabilities.RulesInUse.Count + "/" + Capabilities.RulesAvailable.Count + " (" + Capabilities.RulesInUsePercent.Count.ToString("F1") + " %)";
@@ -83,6 +83,12 @@ namespace Rca.Hue2Json.View
         {
             var ruleDetailsView = new CapabilityRuleDetailsView(Capabilities);
             ruleDetailsView.Show();
+        }
+
+        private void llb_Sensors_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var sensorDetailsView = new CapabilitySensorDetailsView(Capabilities.SensorResources);
+            sensorDetailsView.Show();
         }
     }
 }
