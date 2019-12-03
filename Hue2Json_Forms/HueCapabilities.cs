@@ -127,7 +127,7 @@ namespace Rca.Hue2Json
         /// <summary>
         /// Maximal verfügbar auf Bridge
         /// </summary>
-        public int Available { get; set; }
+        public int Total { get; set; }
 
         /// <summary>
         /// Prozentualer Wert der Belegung
@@ -136,7 +136,7 @@ namespace Rca.Hue2Json
         {
             get
             {
-                return InUse * 100.0 / Available;
+                return InUse * 100.0 / Total;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Rca.Hue2Json
         /// <returns></returns>
         public override string ToString()
         {
-            return InUse + "/" + Available + " (" + InUsePercent.ToString("F1") + " %)";
+            return InUse + "/" + Total + " (" + InUsePercent.ToString("F1") + " %)";
         }
     }
 

@@ -61,9 +61,9 @@ namespace Rca.Hue2Json.View
             cat_Capabilities.Update();
             cat_Capabilities.PerformLayout();
 
-            lbl_Clip.Text = SensorResources.Clip.InUse + "/" + SensorResources.Clip.Available + " (" + SensorResources.Clip.InUsePercent.ToString("F1") + " %)";
-            lbl_Zll.Text = SensorResources.Zll.InUse + "/" + SensorResources.Zll.Available + " (" + SensorResources.Zll.InUsePercent.ToString("F1") + " %)";
-            lbl_Zgp.Text = SensorResources.Zgp.InUse + "/" + SensorResources.Zgp.Available + " (" + SensorResources.Zgp.InUsePercent.ToString("F1") + " %)";
+            lbl_Clip.Text = SensorResources.Clip.InUse + "/" + SensorResources.Clip.Total + " (" + SensorResources.Clip.InUsePercent.ToString("F1") + " %)";
+            lbl_Zll.Text = SensorResources.Zll.InUse + "/" + SensorResources.Zll.Total + " (" + SensorResources.Zll.InUsePercent.ToString("F1") + " %)";
+            lbl_Zgp.Text = SensorResources.Zgp.InUse + "/" + SensorResources.Zgp.Total + " (" + SensorResources.Zgp.InUsePercent.ToString("F1") + " %)";
 
             lbl_DimmerSwitch.Text = DeviceRessources.HueDimmerSwitch.GetMaxAmountString(SensorResources).ToString();
             lbl_MotionSensor.Text = DeviceRessources.HueMotionSensor.GetMaxAmountString(SensorResources).ToString();
@@ -85,12 +85,22 @@ namespace Rca.Hue2Json.View
 
             public string GetMaxAmountString(SensorCapability capability)
             {
-                var spaces = new List<int>
-                {
-                    (int)Math.Floor((double)capability.Zll.Available / ZllCount),
-                    (int)Math.Floor((double)capability.Zgp.Available / ZgpCount),
-                    (int)Math.Floor((double)capability.Clip.Available / ClipCount)
-                };
+                var spaces = new List<int>();
+                if (ZllCount > 0)
+                    spaces.Add((int)Math.Floor((double)capability.Zll.Total / ZllCount));
+                else
+                    spaces.Add(int.MaxValue);
+
+                if (ZgpCount > 0)
+                    spaces.Add((int)Math.Floor((double)capability.Zgp.Total / ZgpCount));
+                else
+                    spaces.Add(int.MaxValue);
+
+                if (ClipCount > 0)
+                    spaces.Add((int)Math.Floor((double)capability.Clip.Total / ClipCount));
+                else
+                    spaces.Add(int.MaxValue);
+
 
                 var i = spaces.IndexOf(spaces.Min());
 

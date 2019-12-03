@@ -390,27 +390,27 @@ namespace Rca.Hue2Json
 
 
                 hueCapabilities.Lights.InUse = lights.Count();
-                hueCapabilities.Lights.Available = capabilities.Lights.Available + hueCapabilities.Lights.InUse;
+                hueCapabilities.Lights.Total = capabilities.Lights.Available + hueCapabilities.Lights.InUse;
 
                 //hueCapabilities.Sensors.InUse = sensors.Count(); //TODO: Diskrepanz zw. HW- u. Soft-Sensoren
                 //hueCapabilities.Sensors.Available = capabilities.Sensors.Available + hueCapabilities.Sensors.InUse;
 
                 hueCapabilities.SensorResources.Total.InUse = capabilities.Sensors.Total - capabilities.Sensors.Available;
-                hueCapabilities.SensorResources.Total.Available = capabilities.Sensors.Available;
+                hueCapabilities.SensorResources.Total.Total = capabilities.Sensors.Total;
 
                 hueCapabilities.SensorResources.Clip.InUse = capabilities.Sensors.Clip.Total - capabilities.Sensors.Clip.Available;
-                hueCapabilities.SensorResources.Clip.Available = capabilities.Sensors.Clip.Available;
+                hueCapabilities.SensorResources.Clip.Total = capabilities.Sensors.Clip.Total;
                 hueCapabilities.SensorResources.Zll.InUse = capabilities.Sensors.Zll.Total - capabilities.Sensors.Zll.Available;
-                hueCapabilities.SensorResources.Zll.Available = capabilities.Sensors.Zll.Available;
+                hueCapabilities.SensorResources.Zll.Total = capabilities.Sensors.Zll.Total;
                 hueCapabilities.SensorResources.Zgp.InUse = capabilities.Sensors.Zgp.Total - capabilities.Sensors.Zgp.Available;
-                hueCapabilities.SensorResources.Zgp.Available = capabilities.Sensors.Zgp.Available;
+                hueCapabilities.SensorResources.Zgp.Total = capabilities.Sensors.Zgp.Total;
                 
                 hueCapabilities.Groups.InUse = groups.Count();
-                hueCapabilities.Groups.Available = capabilities.Groups.Available + hueCapabilities.Groups.InUse;
+                hueCapabilities.Groups.Total = capabilities.Groups.Available + hueCapabilities.Groups.InUse;
                 hueCapabilities.Schedules.InUse = schedules.Count();
-                hueCapabilities.Schedules.Available = capabilities.Schedules.Available + hueCapabilities.Schedules.InUse;
+                hueCapabilities.Schedules.Total = capabilities.Schedules.Available + hueCapabilities.Schedules.InUse;
                 hueCapabilities.Resourcelinks.InUse = resourcelinks.Count();
-                hueCapabilities.Resourcelinks.Available = capabilities.Resourcelinks.Available + hueCapabilities.Resourcelinks.InUse;
+                hueCapabilities.Resourcelinks.Total = capabilities.Resourcelinks.Available + hueCapabilities.Resourcelinks.InUse;
 
                 #region Regeln
                 hueCapabilities.RulesInUse.Count = rules.Count();
